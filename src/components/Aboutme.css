@@ -1,0 +1,70 @@
+
+.about-me-section {
+    padding: 4rem 2rem;
+    background-color: #7c9885; 
+    text-align: center;
+  }
+  
+  .section-heading {
+    font-family: 'Arial', sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2f3b4c;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeIn 1.5s ease-out forwards;
+  }
+  
+
+  .about-me-card,
+  .hobbies-card,
+  .interests-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .about-me-card h3,
+  .hobbies-card h3,
+  .interests-card h3 {
+    font-size: 1.8rem;
+    color: #28666e;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .about-me-card p,
+  .hobbies-card p,
+  .interests-card p {
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+ 
+  .about-me-card:hover,
+  .hobbies-card:hover,
+  .interests-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
+  
+  @media (max-width: 768px) {
+    .section-heading {
+      font-size: 2rem; 
+    }
+  }
+  

@@ -1,0 +1,54 @@
+
+.contact-page {
+  background: linear-gradient(45deg, #b5b682, #b5b682);
+ 
+  padding: 50px 0;
+}
+
+.contact-text {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.contact-details {
+  background-color: #343a40;
+  color: white;
+}
+
+.bg-custom {
+  background-color: #28666e;
+}
+
+.btn-gradient {
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  color: white;
+}
+
+.btn-social {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-facebook {
+  background-color: #3b5998;
+}
+
+.btn-twitter {
+  background-color: #1da1f2;
+}
+
+.btn-linkedin {
+  background-color: #0077b5;
+}
+
+.text-light {
+  color: #f8f9fa;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-lg {
+  border-radius: 10px;
+}

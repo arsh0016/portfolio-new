@@ -1,0 +1,109 @@
+h2 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.skill-card .skill-info {
+    opacity: 1; 
+    transform: translateY(0); 
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.progress {
+    height: 12px;
+    border-radius: 6px;
+    background-color: #2b5a75;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 6px;
+    background-image: linear-gradient(45deg, #ffffff, #669964);
+    width: 100%; 
+    transition: width 3s ease-out, background 0.4s ease-in-out; 
+}
+
+.skill-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #f1f1f1;
+    text-transform: uppercase;
+    animation: slideIn 1s ease-out;
+}
+
+.skill-percentage {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #a1ccdc;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 991px) {
+    .skill-card {
+        padding: 1.25rem;
+    }
+
+    .skill-name {
+        font-size: 1.1rem;
+    }
+
+    .skill-percentage {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 767px) {
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    .skill-card {
+        padding: 1rem;
+    }
+
+    .skill-name {
+        font-size: 1rem;
+    }
+
+    .skill-percentage {
+        font-size: 0.85rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 48%; 
+        max-width: 48%;
+    }
+
+    .d-inline-block {
+        display: inline-block;
+        width: 48%;
+    }
+}

@@ -1,0 +1,156 @@
+/* General Styles */
+.about-container {
+  color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.title {
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  font-size: 3rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.title:hover {
+  color: #ff69b4;
+  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+  font-family: 'Lora', serif;
+  font-size: 1.25rem;
+  color: #d1d1d1;
+  letter-spacing: 1px;
+}
+
+.separator {
+  border: 0;
+  border-top: 2px solid #00aaff;
+  width: 50px;
+  margin: 20px auto;
+}
+
+.section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  color: #f1f1f1;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #00aaff;
+  border-radius: 2px;
+}
+
+.section-text {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #dcdcdc;
+  text-align: justify;
+  transition: color 0.3s ease;
+}
+
+.section-text:hover {
+  color: #ffffff;
+}
+
+/* Background Section */
+.background-section {
+  background: linear-gradient(45deg, #b5b682, #7c9885);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* Skills Section */
+.skills-section {
+  background: linear-gradient(45deg, #b5b682, #7c9885);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.skills-section .section-title {
+  color: #ff9800;
+}
+
+.skills-section .section-text {
+  color: #ffffff;
+}
+
+/* Hobbies Section */
+.hobbies-section {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.hobbies-section .section-title {
+  color: #f44336;
+}
+
+.hobbies-section .section-text {
+  color: #ffffff;
+}
+
+/* Vision Section */
+.vision-section {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.vision-section .section-title {
+  color: #4caf50;
+}
+
+.vision-section .section-text {
+  color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .section-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-container {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .section-text {
+    font-size: 0.95rem;
+  }
+}
