@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './SkillsSection.css';
 
 const SkillsSection = ({ skills }) => {
-  const [hoveredSkill, setHoveredSkill] = useState(null);
   const [progressWidth, setProgressWidth] = useState({}); 
 
   useEffect(() => {
@@ -14,8 +13,6 @@ const SkillsSection = ({ skills }) => {
   }, [skills]);
 
   const handleMouseEnter = (skillName) => {
-    setHoveredSkill(skillName);
-
     setProgressWidth((prev) => ({
       ...prev,
       [skillName]: 0,
@@ -29,9 +26,7 @@ const SkillsSection = ({ skills }) => {
     }, 100); 
   };
 
-  const handleMouseLeave = () => {
-    setHoveredSkill(null);
-  };
+  const handleMouseLeave = () => {};
 
   return (
     <div className="container my-5">
@@ -54,7 +49,7 @@ const SkillsSection = ({ skills }) => {
                   <div
                     className="progress-bar"
                     style={{
-                      width: `${progressWidth[skill.name] || skill.percent}%`, // Default to the skill's percentage
+                      width: `${progressWidth[skill.name] || skill.percent}%`,
                     }}
                   ></div>
                 </div>
