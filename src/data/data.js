@@ -1,3 +1,17 @@
+// Import images for the projects
+import g1 from '../assets/images/g1.jpg';
+import g2 from '../assets/images/g2.jpg';
+import g3 from '../assets/images/g3.jpg';
+import logo from '../assets/images/logo.png';
+
+import ux1 from '../assets/images/ux1.jpg';
+import ux2 from '../assets/images/ux2.jpg';
+import ux3 from '../assets/images/ux3.jpg';
+
+import portfolioImage from '../assets/images/pro1.PNG';
+import ecommerceImage from '../assets/images/pro2.PNG';
+import socialMediaImage from '../assets/images/pro3.PNG';
+
 // Skills data
 export const skills = [ 
   { name: "JavaScript", percent: 70 },
@@ -29,20 +43,6 @@ export const testimonials = [
     avatar: "https://randomuser.me/api/portraits/women/20.jpg"
   }
 ];
-
-// Import images for the projects
-import g1 from '../assets/images/g1.jpg';
-import g2 from '../assets/images/g2.jpg';
-import g3 from '../assets/images/g3.jpg';
-import logo from '../assets/images/logo.png';
-
-import ux1 from '../assets/images/ux1.jpg';
-import ux2 from '../assets/images/ux2.jpg';
-import ux3 from '../assets/images/ux3.jpg';
-
-import portfolioImage from '../assets/images/pro1.PNG';
-import ecommerceImage from '../assets/images/pro2.PNG';
-import socialMediaImage from '../assets/images/pro3.PNG';
 
 // Projects data
 export const projects = [
