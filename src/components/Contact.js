@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
 import './Contact.css';
 
 const Contact = () => {
@@ -7,6 +8,8 @@ const Contact = () => {
     email: '',
     message: '',
   });
+  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isModalVisible, setIsModalVisible] = useState(false); // Modal visibility state
 
   const contactDetails = {
     address: '123 Main St, Springfield',
@@ -30,20 +33,49 @@ const Contact = () => {
     });
   };
 
-  const submitForm = (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
-    alert(`Thank you, ${form.name}! Your message has been sent.`);
-    setForm({
-      name: '',
-      email: '',
-      message: '',
-    });
+    setIsLoading(true); // Start loading spinner
+
+    const templateParams = {
+      from_name: form.name,
+      from_email: form.email,
+      message: form.message,
+    };
+
+    emailjs
+      .send(
+        'service_s5o2ay6',
+        'template_8l0y1u9',
+        templateParams,
+        'rCsR8jDxU5Nz8LzgV'
+      )
+      .then(
+        (result) => {
+          console.log('Email sent successfully:', result.text);
+          setForm({
+            name: '',
+            email: '',
+            message: '',
+          });
+          setIsLoading(false); // Stop loading spinner
+          setIsModalVisible(true); // Show success modal
+        },
+        (error) => {
+          console.error('Error sending email:', error);
+          setIsLoading(false); // Stop loading spinner
+        }
+      );
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
   };
 
   return (
     <div className="contact-page container mt-5">
       <div className="text-center mb-5">
-        <h1 className="display-4 section-heading ">Contact Me</h1>
+        <h1 className="display-4 section-heading text-white">Contact Me</h1>
         <p className="lead text-white">
           I'd love to hear from you! Fill out the form below or connect with me on social media.
         </p>
@@ -53,7 +85,7 @@ const Contact = () => {
       <div className="row justify-content-center">
         {/* Contact Form */}
         <div className="col-12 col-md-6">
-          <form onSubmit={submitForm} className="bg-custom shadow-lg rounded-lg p-4 back">
+          <form onSubmit={sendEmail} className="bg-custom shadow-lg rounded-lg p-4 back">
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
@@ -93,8 +125,19 @@ const Contact = () => {
                 required
               ></textarea>
             </div>
-            <button type="submit" className="btn btn-gradient btn-block">
-              Send Message
+            <button type="submit" className="btn btn-gradient btn-block" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>{' '}
+                  Sending...
+                </>
+              ) : (
+                'Send Message'
+              )}
             </button>
           </form>
         </div>
@@ -127,11 +170,38 @@ const Contact = () => {
                 {contactDetails.phone}
               </a>
             </p>
-
-        
+            <div className="social-links">
+              {contactDetails.socialLinks.map((link) => (
+                <a key={link.platform} href={link.url} className="social-icon">
+                  <i className={`fab fa-${link.platform}`} />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Success Modal */}
+      {isModalVisible && (
+        <div className="modal fade show d-block" tabIndex="-1" role="dialog" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title text-dark">Message Sent</h5>
+                <button type="button" className="btn-close" onClick={closeModal} aria-label="Close"></button>
+              </div>
+              <div className="modal-body">
+                <p className='text-dark'>Thank you for your message. We will get back to you soon!</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary" onClick={closeModal}>
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

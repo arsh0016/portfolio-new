@@ -4,7 +4,7 @@ import './Aboutme.css'; // Import custom CSS if needed
 const AboutMeSection = () => {
   return (
     <div className="about-me-section">
-      <h2 className="section-heading">About Me</h2>
+      <h2 className="section-heading text-white">About Me</h2>
 
       <div className="container">
         <div className="row">

@@ -1,75 +1,54 @@
-import React from 'react';
+import React, { useMemo, useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { projects, graphicProjects, uxProjects } from '../data/data';
 import './detailspage.css';
 
-import pro1Image from '../assets/images/pro1.PNG';
-import pro2Image from '../assets/images/pro2.PNG';
-import pro3Image from '../assets/images/pro3.PNG';
-
 const ProjectDetailPage = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
+  const [error, setError] = useState(null);
 
-  const projects = [
-    {
-      id: 1,
-      title: 'THE ARTHOUSE',
-      description: 'An immersive website designed to highlight artistic creations and design projects. Built with Vue.js and Tailwind CSS for a sleek, modern look.',
-      image: pro1Image,
-    },
-    {
-      id: 2,
-      title: 'CAPSTONE PROJECT',
-      description: 'On our Capstone website, we showcase the Astronomy Picture of the Day (APOD). In addition to this, we also feature top stories related to astronomy. This allows users to stay updated with the latest developments and discoveries in the field of astronomy, while enjoying stunning space images.',
-      image: pro2Image,
-    },
-    {
-      id: 3,
-      title: 'GALLERY',
-      description: 'I have created a gallery website where users can view pictures from the last 9 days. It is related to the Astronomy Picture of the Day (APOD), allowing visitors to explore images from the past 10 days of APOD.',
-      image: pro3Image,
-    },
-    {
-        id: 4,
-        title: 'DESIGNHUB',
-        description: 'A dynamic platform for graphic designers to showcase their portfolios and connect with potential clients. Featuring a clean, modern design with intuitive navigation for a seamless user experience.',
-        image: require('../assets/images/designhub.jpg'),
-        
-      },
-      {
-        id: 5,
-        title: 'UXFLOW',
-        description: 'A UX design project focused on improving the user experience of mobile apps through wireframes and prototypes. Built to facilitate collaboration between designers and developers for smoother workflows.',
-        image: require('../assets/images/uxflow.jpg'),
+  const allProjects = useMemo(() => [...projects, ...graphicProjects, ...uxProjects], []);
 
-      },
-      {
-        id: 6,
-        title: 'PIXELCRAFT',
-        description: 'A graphic design studio showcasing diverse artwork, logo designs, and digital illustrations. Featuring a portfolio-style layout to highlight creativity and graphic design expertise.',
-        image: require('../assets/images/pixelcraft.jpg'),
-     
-      }
-  ];
+  const project = useMemo(() => {
+    return allProjects.find((project) => project.id === parseInt(id));
+  }, [id, allProjects]);
 
-  const project = projects.find((project) => project.id === parseInt(id));
+  const loadImage = useCallback((src) => {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.src = src;
+      image.onload = () => resolve(src);
+      image.onerror = () => reject('Image failed to load');
+    });
+  }, []);
+
+  useEffect(() => {
+    if (project && project.image) {
+      loadImage(project.image)
+        .then(() => setError(null))
+        .catch(() => setError('Error loading image'));
+    }
+  }, [project, loadImage]);
+
+  if (!project) {
+    return <p className="project-not-found">Project not found.</p>;
+  }
 
   return (
     <div className="project-detail-container">
-      {project ? (
-        <div className="project-detail-card">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="project-detail-image"
-          />
-          <div className="project-detail-content">
-            <h2>{project.title}</h2>
-            <p>{project.description}</p>
-          </div>
+      {error && <p className="image-error">{error}</p>}
+      <div className="project-detail-card">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="project-detail-image"
+          loading="lazy"
+        />
+        <div className="project-detail-content">
+          <h2>{project.title}</h2>
+          <p>{project.description}</p>
         </div>
-      ) : (
-        <p className="project-not-found">Project not found.</p>
-      )}
+      </div>
     </div>
   );
 };

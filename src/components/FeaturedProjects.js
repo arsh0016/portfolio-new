@@ -1,22 +1,28 @@
 import React from 'react';
-import './FeaturedProjects.css'; 
+import { Link } from 'react-router-dom'; // Import Link for navigation
+import './FeaturedProjects.css';
 
-const FeaturedProjects = ({ featuredProjects }) => {
+const FeaturedProjects = ({ featuredProjects, heading = "Projects" }) => {
   return (
     <div className="container">
-      <h2 className="section-heading"> Projects</h2>
+      <h2 className="section-heading text-white">{heading}</h2>
       <div className="row">
         {featuredProjects.map((project) => (
           <div className="col" key={project.id}>
             <div className="project-card">
               <div className="image-container">
-                <img src={project.image} className="card-img-top text-white" alt={project.title} />
+                <img 
+                  src={project.image} 
+                  className="card-img-top text-white" 
+                  alt={project.title} 
+                />
                 <div className="overlay">
                   <h5>{project.title}</h5>
                   <p>{project.description}</p>
-                  <a href={project.link} className="btn-gradient">
-                  View Project
-                </a>
+                  {/* Use Link to navigate to the project detail page */}
+                  <Link to={`/projects/${project.id}`} className="btn-gradient">
+                    View Project
+                  </Link>
                 </div>
               </div>
             </div>

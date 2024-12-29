@@ -1,33 +1,42 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Importing necessary components for routing
+import React, { Suspense, useMemo } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Home from './pages/Home';  // Import Home.js
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import AboutPage from './pages/aboutpage';
-import ProjectsPage from './pages/projectspage';
-import ProjectDetailPage from './pages/ProjectDetailPage';
-import ContactUsPage from './pages/ContactUsPage';
 import './App.css';
 
-function App() {
+const Home = React.lazy(() => import('./pages/Home'));
+const AboutPage = React.lazy(() => import('./pages/aboutpage'));
+const ProjectsPage = React.lazy(() => import('./pages/projectspage'));
+const ProjectDetailPage = React.lazy(() => import('./pages/ProjectDetailPage'));
+const ContactUsPage = React.lazy(() => import('./pages/ContactUsPage'));
+
+const App = () => {
+  const routes = useMemo(
+    () => [
+      { path: '/', component: Home },
+      { path: '/about', component: AboutPage },
+      { path: '/projects', component: ProjectsPage },
+      { path: '/contact', component: ContactUsPage },
+      { path: '/projects/:id', component: ProjectDetailPage },
+    ],
+    []
+  );
+
   return (
     <Router>
-      <div>
-        <Navbar /> 
+      <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutPage/>} />
-          <Route path="/projects" element={<ProjectsPage/>} />
-          <Route path='/contact' element={<ContactUsPage/>} />
-          <Route path="/project/:id" element={<ProjectDetailPage />} />
-      
+          {routes.map(({ path, component: Component }) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
         </Routes>
-        <Footer />
-      </div>
+      </Suspense>
+      <Footer />
     </Router>
   );
-}
+};
 
 export default App;

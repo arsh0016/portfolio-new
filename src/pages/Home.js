@@ -1,79 +1,83 @@
-import React from 'react';
+import React, { useMemo, useReducer, useEffect } from 'react';
 import HeroSection from '../components/HeroSection';
 import SkillsSection from '../components/SkillsSection';
 import FeaturedProjects from '../components/FeaturedProjects';
 import TestimonialsSection from '../components/TestimonialsSection';
 import AboutMeSection from '../components/Aboutme';
+import { projects, uxProjects, graphicProjects, skills, testimonials } from '../data/data';
 
-import portfolioImage from '../assets/images/pro1.PNG';
-import ecommerceImage from '../assets/images/pro2.PNG';
-import socialMediaImage from '../assets/images/pro3.PNG';
+const shuffleArray = (array) => {
+  const shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+};
+
+const initialState = {
+  featuredProject: null,
+  uxProject: null,
+  graphicProject: null,
+  skills: [],
+  testimonials: [],
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_PROJECTS':
+      return { ...state, ...action.payload };
+    case 'SET_SKILLS':
+      return { ...state, skills: action.payload };
+    case 'SET_TESTIMONIALS':
+      return { ...state, testimonials: action.payload };
+    default:
+      return state;
+  }
+};
 
 const Home = () => {
-  const skills = [
-    { name: "JavaScript", percent: 70 },
-    { name: "React", percent: 80 },
-    { name: "CSS", percent: 85 },
-    { name: "Node.js", percent: 75 },
-  ];
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const testimonials = [
-    {
-      text: "Their professionalism and creativity truly stand out. They understood our needs and delivered beyond expectations.",
-      author: "Liam O'Connor",
-      avatar: "https://randomuser.me/api/portraits/men/12.jpg"
-    },
-    {
-      text: "Working with them was an amazing experience. They captured the essence of my project and brought it to life in ways I didn't expect.",
-      author: "Ava Green",
-      avatar: "https://randomuser.me/api/portraits/women/35.jpg"
-    },
-    {
-      text: "A pleasure to work with! They are highly skilled and always ready to take on new challenges with enthusiasm.",
-      author: "Noah Harris",
-      avatar: "https://randomuser.me/api/portraits/men/5.jpg"
-    },
-    {
-      text: "Their attention to detail and commitment to quality is unmatched. They made our project a success with their expert work.",
-      author: "Sophia Lee",
-      avatar: "https://randomuser.me/api/portraits/women/20.jpg"
-    }
-    
-  ];
-  
-  const featuredProjects = [
-    {
-      id: 1,
-      title: 'THE ARTHOUSE',
-      description: 'An immersive website designed to highlight artistic creations and design projects. Built with Vue.js and Tailwind CSS for a sleek, modern look.',
-      image: portfolioImage,
-      link: '/project/1',
-    },    
-    {
-      id: 2,
-      title: 'CAPSTONE PROJECT',
-      description: 'On our Capstone website, we showcase the Astronomy Picture of the Day (APOD). In addition to this, we also feature top stories related to astronomy. This allows users to stay updated with the latest developments and discoveries in the field of astronomy, while enjoying stunning space images.',
-      image: ecommerceImage,
-      link: '/project/2',
-    },
-    {
-      id: 3,
-      title: 'GALLERY',
-      description: 'I have created a gallery website where users can view pictures from the last 9 days. It is related to the Astronomy Picture of the Day (APOD), allowing visitors to explore images from the past 10 days of APOD.',
-  
-      image: socialMediaImage,
-      link: '/project/3',
-    },
-  ];
+  useEffect(() => {
+    const loadData = async () => {
+      const selectedProjects = {
+        featuredProject: shuffleArray(projects)[0],
+        uxProject: shuffleArray(uxProjects)[0],
+        graphicProject: shuffleArray(graphicProjects)[0],
+      };
+
+      const selectedSkills = [...skills].sort((a, b) => b.percent - a.percent).slice(0, 4);
+      const selectedTestimonials = shuffleArray(testimonials).slice(0, 4);
+
+      dispatch({
+        type: 'SET_PROJECTS',
+        payload: selectedProjects,
+      });
+
+      dispatch({
+        type: 'SET_SKILLS',
+        payload: selectedSkills,
+      });
+
+      dispatch({
+        type: 'SET_TESTIMONIALS',
+        payload: selectedTestimonials,
+      });
+    };
+
+    loadData();
+  }, []);
+
+  const { featuredProject, uxProject, graphicProject, skills: selectedSkills, testimonials: selectedTestimonials } = state;
 
   return (
     <div>
       <HeroSection />
-      <FeaturedProjects featuredProjects={featuredProjects} />
+      {featuredProject && <FeaturedProjects featuredProjects={[featuredProject, uxProject, graphicProject]} />}
       <AboutMeSection />
-      <SkillsSection skills={skills} />
-      <TestimonialsSection testimonials={testimonials} /> 
-   
+      {selectedSkills.length > 0 && <SkillsSection skills={selectedSkills} />}
+      {selectedTestimonials.length > 0 && <TestimonialsSection testimonials={selectedTestimonials} />}
     </div>
   );
 };

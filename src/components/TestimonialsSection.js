@@ -6,7 +6,7 @@ const TestimonialsSection = ({ testimonials = [] }) => {
 
   return (
     <div className="testimonials-section">
-      <h2 className="section-heading">What Our Clients Say</h2>
+      <h2 className="section-heading text-white">What Our Clients Say</h2>
       <div className="testimonials-container">
         {/* Render Testimonials Dynamically */}
         {testimonials && testimonials.length > 0 ? (
